@@ -27,16 +27,21 @@ public class Producer extends Thread{
     @Override
     public void run() {
         for(int i = 0; i < 10; i++) {
-            Random r = new Random(System.currentTimeMillis());
+            Random r = new Random();
             try {
                 Thread.sleep(this.sleepTime);
             } catch (InterruptedException ex) {
                 continue;
             }
-            String[] a = {"A", "B", "C", "D"};
-            String producto = a[r.nextInt(4)];
-            w.produce(producto);
+            w.produce(this.createProduct());
             // System.out.println(String.format("Productor %d produjo %s", this.id, producto));
         }
+    }
+    
+    public String createProduct(){
+        Random r = new Random();
+        char[] symbol = {'*', '/', '+', '-'};
+        
+        return "(" + symbol[r.nextInt(4)] + " " + r.nextInt(10) + " " + r.nextInt(10) + ")";
     }
 }

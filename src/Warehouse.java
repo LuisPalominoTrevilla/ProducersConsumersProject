@@ -31,7 +31,7 @@ public class Warehouse {
         return this.tasksBuffer.isEmpty();
     }
     
-    public synchronized String consume() {
+    public synchronized String withdrawProduct() {
         while (this.isEmpty()) {
             try {
                 wait();

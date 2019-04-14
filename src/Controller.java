@@ -1,8 +1,6 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

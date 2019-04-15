@@ -50,15 +50,15 @@ public class Controller implements ActionListener {
     public void startThreads() {
         this.producers = new Producer[this.model.numProducers];
         this.consumers = new Consumer[this.model.numConsumers];
-        this.warehouse = new Warehouse(this.model.bufferSize);
+        this.warehouse = new Warehouse(this.model.bufferSize, this.model, this.view);
         
         for (int i = 0; i < this.model.numProducers; i++) {
-            this.producers[i] = new Producer(i + 1, this.warehouse, this.model.sleepProducers);
+            this.producers[i] = new Producer(i + 1, this.warehouse, this.model.sleepProducers, this.model, this.view);
             this.producers[i].start();
         }
         
         for (int i = 0; i < this.model.numConsumers; i++) {
-            this.consumers[i] = new Consumer(i + 1, this.warehouse, this.model.sleepConsumers);
+            this.consumers[i] = new Consumer(i + 1, this.warehouse, this.model.sleepConsumers, this.model, this.view);
             this.consumers[i].start();
         }
     }
@@ -76,12 +76,23 @@ public class Controller implements ActionListener {
                     this.model.validInput = false;
                 } else {
                     this.model.validInput = true;
+                    this.model.showStartBtn = false;
+                    this.model.showStopBtn = true;
                     this.startThreads();
                 }
                 this.view.updateOptions();
+                this.view.updateProducersView();
+                this.view.updateConsumersView();
                 break;
             case "Stop":
-                System.out.println("Stop clicked");
+                for (Producer producer : this.producers) {
+                    producer.stopThread();
+                }
+                for (Consumer consumer : this.consumers) {
+                    consumer.stopThread();
+                }
+                this.model.resetModel();
+                this.view.updateOptions();
                 break;
         }
     }

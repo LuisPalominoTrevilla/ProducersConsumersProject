@@ -1,7 +1,5 @@
 
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,24 +15,34 @@ public class Producer extends Thread{
     private int id;
     private Warehouse w;
     private long sleepTime;
+    private Model model;
+    private View view;
+    private boolean runThreads;
     
-    public Producer(int id, Warehouse w, long sleep) {
+    public Producer(int id, Warehouse w, long sleep, Model model, View view) {
         this.id = id;
         this.w = w;
         this.sleepTime = sleep;
+        this.model = model;
+        this.view = view;
+        this.runThreads = true;
     }
     
     @Override
     public void run() {
-        for(int i = 0; i < 10; i++) {
-            Random r = new Random();
+        while(true) {
             try {
                 Thread.sleep(this.sleepTime);
             } catch (InterruptedException ex) {
                 continue;
             }
-            w.produce(this.createProduct());
-            // System.out.println(String.format("Productor %d produjo %s", this.id, producto));
+            if (!this.runThreads) break;
+            
+            String product = this.createProduct();
+            w.produce(product);
+            String output = String.format("Productor %d produjo %s", id, product);
+            this.model.producersOutput.add(output);
+            this.view.updateProducersView();
         }
     }
     
@@ -43,5 +51,9 @@ public class Producer extends Thread{
         char[] symbol = {'*', '/', '+', '-'};
         
         return "(" + symbol[r.nextInt(4)] + " " + r.nextInt(10) + " " + r.nextInt(10) + ")";
+    }
+    
+    public void stopThread() {
+        this.runThreads = false;
     }
 }

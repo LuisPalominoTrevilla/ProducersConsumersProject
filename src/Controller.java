@@ -78,10 +78,11 @@ public class Controller implements ActionListener {
                     this.model.validInput = true;
                     this.model.showStartBtn = false;
                     this.model.showStopBtn = true;
+                    this.model.clearOutputLists();
                     this.startThreads();
                 }
                 this.view.updateOptions();
-                this.view.updateProducersView();
+                this.view.updateProgressBar();
                 this.view.updateConsumersView();
                 break;
             case "Stop":
@@ -98,13 +99,12 @@ public class Controller implements ActionListener {
     }
     
     public synchronized void updateConsumersOutput(String output) {
-        // this.model.consumersOutput.add(output);
+        this.model.consumersOutput.addElement(output);
         this.model.solvedTasks++;
         this.view.updateConsumersView();
     }
     
     public synchronized void updateProducersOutput(String output) {
-        // this.model.producersOutput.add(output);
-        // this.view.updateProducersView();
+        this.model.producersOutput.addElement(output);
     }
 }

@@ -1,5 +1,5 @@
 
-import java.util.Vector;
+import javax.swing.DefaultListModel;
 
 
 
@@ -24,13 +24,15 @@ public class Model {
     boolean validInput;
     boolean showStartBtn;
     boolean showStopBtn;
-    Vector<String> producersOutput;
-    Vector<String> consumersOutput;
+    DefaultListModel<String> producersOutput;
+    DefaultListModel<String> consumersOutput;
     long solvedTasks;
     int barColor;
     int queuedProducts;
     
     public Model() {
+        this.producersOutput = new DefaultListModel();
+        this.consumersOutput = new DefaultListModel();
         this.resetModel();
     }
     
@@ -43,12 +45,14 @@ public class Model {
         this.validInput = true;
         this.showStartBtn = true;
         this.showStopBtn = false;
-        this.producersOutput = new Vector();
-        this.consumersOutput = new Vector();
         this.solvedTasks = 0;
         this.barColor = 0x1b4484;
         this.queuedProducts = 0;
     }
     
+    public void clearOutputLists() {
+        this.producersOutput.clear();
+        this.consumersOutput.clear();
+    }
     
 }

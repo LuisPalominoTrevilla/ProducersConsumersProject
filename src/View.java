@@ -25,6 +25,8 @@ public class View extends javax.swing.JFrame {
     public View(ProducerConsumerApp parent) {
         this.model = parent.getModel();
         this.initComponents();
+        this.l_p_events.setModel(this.model.producersOutput);
+        this.l_c_events.setModel(this.model.consumersOutput);
         this.updateOptions();
         this.initBarPanel();
     }
@@ -36,24 +38,11 @@ public class View extends javax.swing.JFrame {
     }
     
     public void updateConsumersView() {
-        this.l_c_events.setListData(this.model.consumersOutput);
         this.tf_solved.setText(this.model.solvedTasks + "");
-    }
-    
-    public void updateProducersView() {
-        this.l_p_events.setListData(this.model.producersOutput);
     }
     
     public void updateProgressBar() {
         this.p_bar.update();
-    }
-    
-    public void initBarPanel() {
-        int containerWidth = View.this.p_container.getWidth();
-        int containerHeight = View.this.p_container.getHeight();
-        this.p_bar = new ProgressBar(this.model, View.this.p_container.getHeight(), View.this.p_container.getWidth());
-        this.p_bar.setSize(new Dimension(containerWidth, containerHeight));
-        this.p_container.add(this.p_bar);
     }
     
     public void updateOptions() {
@@ -65,6 +54,14 @@ public class View extends javax.swing.JFrame {
         
         this.bt_start.setEnabled(this.model.showStartBtn);
         this.bt_stop.setEnabled(this.model.showStopBtn);
+    }
+    
+    public void initBarPanel() {
+        int containerWidth = View.this.p_container.getWidth();
+        int containerHeight = View.this.p_container.getHeight();
+        this.p_bar = new ProgressBar(this.model, View.this.p_container.getHeight(), View.this.p_container.getWidth());
+        this.p_bar.setSize(new Dimension(containerWidth, containerHeight));
+        this.p_container.add(this.p_bar);
     }
 
     /**

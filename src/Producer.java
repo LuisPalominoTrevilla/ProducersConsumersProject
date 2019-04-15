@@ -15,16 +15,14 @@ public class Producer extends Thread{
     private int id;
     private Warehouse w;
     private long sleepTime;
-    private Model model;
-    private View view;
+    private Controller controller;
     private boolean runThreads;
     
-    public Producer(int id, Warehouse w, long sleep, Model model, View view) {
+    public Producer(int id, Warehouse w, long sleep, Controller controller) {
         this.id = id;
         this.w = w;
         this.sleepTime = sleep;
-        this.model = model;
-        this.view = view;
+        this.controller = controller;
         this.runThreads = true;
     }
     
@@ -41,8 +39,7 @@ public class Producer extends Thread{
             String product = this.createProduct();
             w.produce(product);
             String output = String.format("Productor %d produjo %s", id, product);
-            this.model.producersOutput.add(output);
-            this.view.updateProducersView();
+            this.controller.updateProducersOutput(output);
         }
     }
     

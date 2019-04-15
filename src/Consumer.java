@@ -12,16 +12,14 @@ public class Consumer extends Thread{
     private int id;
     private Warehouse w;
     private long sleepTime;
-    private Model model;
-    private View view;
+    private Controller controller;
     private boolean runThreads;
     
-    public Consumer(int id, Warehouse w, long sleep, Model model, View view) {
+    public Consumer(int id, Warehouse w, long sleep, Controller controller) {
         this.id = id;
         this.w = w;
         this.sleepTime = sleep;
-        this.model = model;
-        this.view = view;
+        this.controller = controller;
         this.runThreads = true;
     }
     
@@ -44,9 +42,7 @@ public class Consumer extends Thread{
                 result = "Consumidor " + this.id + " consumió " + product + " pero arrojó un error por dividir entre 0";
             }
             
-            this.model.consumersOutput.add(result);
-            this.model.solvedTasks++;
-            this.view.updateConsumersView();
+            this.controller.updateConsumersOutput(result);
         }
     }
     

@@ -53,12 +53,12 @@ public class Controller implements ActionListener {
         this.warehouse = new Warehouse(this.model.bufferSize, this.model, this.view);
         
         for (int i = 0; i < this.model.numProducers; i++) {
-            this.producers[i] = new Producer(i + 1, this.warehouse, this.model.sleepProducers, this.model, this.view);
+            this.producers[i] = new Producer(i + 1, this.warehouse, this.model.sleepProducers, this);
             this.producers[i].start();
         }
         
         for (int i = 0; i < this.model.numConsumers; i++) {
-            this.consumers[i] = new Consumer(i + 1, this.warehouse, this.model.sleepConsumers, this.model, this.view);
+            this.consumers[i] = new Consumer(i + 1, this.warehouse, this.model.sleepConsumers, this);
             this.consumers[i].start();
         }
     }
@@ -95,5 +95,16 @@ public class Controller implements ActionListener {
                 this.view.updateOptions();
                 break;
         }
+    }
+    
+    public synchronized void updateConsumersOutput(String output) {
+        // this.model.consumersOutput.add(output);
+        this.model.solvedTasks++;
+        this.view.updateConsumersView();
+    }
+    
+    public synchronized void updateProducersOutput(String output) {
+        // this.model.producersOutput.add(output);
+        // this.view.updateProducersView();
     }
 }

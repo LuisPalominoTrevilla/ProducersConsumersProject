@@ -1,9 +1,6 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import javax.swing.DefaultListModel;
-import javax.swing.ListModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

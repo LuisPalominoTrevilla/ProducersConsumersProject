@@ -25,8 +25,6 @@ public class View extends javax.swing.JFrame {
     public View(ProducerConsumerApp parent) {
         this.model = parent.getModel();
         this.initComponents();
-        this.l_p_events.setModel(this.model.producersOutput);
-        this.l_c_events.setModel(this.model.consumersOutput);
         this.updateOptions();
         this.initBarPanel();
     }
@@ -37,7 +35,20 @@ public class View extends javax.swing.JFrame {
         this.bt_stop.addActionListener(this.controller);
     }
     
+    public void updateProducersView() {
+        StringBuilder result = new StringBuilder();
+        for (String output : this.model.producersOutput) {
+            result.append(output+"\n");
+        }
+        this.ta_p.setText(result.toString());
+    }
+    
     public void updateConsumersView() {
+        StringBuilder result = new StringBuilder();
+        for (String output : this.model.consumersOutput) {
+            result.append(output+"\n");
+        }
+        this.ta_c.setText(result.toString());
         this.tf_solved.setText(this.model.solvedTasks + "");
     }
     
@@ -91,11 +102,11 @@ public class View extends javax.swing.JFrame {
         ta_logger = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        l_p_events = new javax.swing.JList<>();
+        ta_p = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        l_c_events = new javax.swing.JList<>();
+        ta_c = new javax.swing.JTextArea();
         jLabel10 = new javax.swing.JLabel();
         tf_solved = new javax.swing.JTextField();
         p_container = new javax.swing.JPanel();
@@ -148,7 +159,10 @@ public class View extends javax.swing.JFrame {
 
         jLabel7.setText("Logs:");
 
-        jScrollPane2.setViewportView(l_p_events);
+        ta_p.setEditable(false);
+        ta_p.setColumns(20);
+        ta_p.setRows(5);
+        jScrollPane2.setViewportView(ta_p);
 
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 3, 14)); // NOI18N
         jLabel8.setText("Producers");
@@ -156,7 +170,10 @@ public class View extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 3, 14)); // NOI18N
         jLabel9.setText("Consumers");
 
-        jScrollPane3.setViewportView(l_c_events);
+        ta_c.setEditable(false);
+        ta_c.setColumns(20);
+        ta_c.setRows(5);
+        jScrollPane3.setViewportView(ta_c);
 
         jLabel10.setText("Solved tasks");
 
@@ -342,13 +359,13 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JList<String> l_c_events;
-    private javax.swing.JList<String> l_p_events;
     private javax.swing.JPanel p_container;
     private javax.swing.JSpinner sp_b_size;
     private javax.swing.JSpinner sp_c_number;
     private javax.swing.JSpinner sp_p_number;
+    private javax.swing.JTextArea ta_c;
     private javax.swing.JTextArea ta_logger;
+    private javax.swing.JTextArea ta_p;
     private javax.swing.JTextField tf_c_sleepTime;
     private javax.swing.JTextField tf_p_sleepTime;
     private javax.swing.JTextField tf_solved;

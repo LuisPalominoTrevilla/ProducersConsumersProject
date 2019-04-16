@@ -78,9 +78,9 @@ public class Controller implements ActionListener {
                     this.model.validInput = true;
                     this.model.showStartBtn = false;
                     this.model.showStopBtn = true;
-                    this.model.clearOutputLists();
                     this.startThreads();
                 }
+                this.model.resetModelUI();
                 this.view.updateOptions();
                 this.view.updateProgressBar();
                 this.view.updateConsumersView();
@@ -92,19 +92,20 @@ public class Controller implements ActionListener {
                 for (Consumer consumer : this.consumers) {
                     consumer.stopThread();
                 }
-                this.model.resetModel();
+                this.model.resetModelOptions();
                 this.view.updateOptions();
                 break;
         }
     }
     
     public synchronized void updateConsumersOutput(String output) {
-        this.model.consumersOutput.addElement(output);
+        this.model.consumersOutput.add(output);
         this.model.solvedTasks++;
         this.view.updateConsumersView();
     }
     
     public synchronized void updateProducersOutput(String output) {
-        this.model.producersOutput.addElement(output);
+        this.model.producersOutput.add(output);
+        this.view.updateProducersView();
     }
 }

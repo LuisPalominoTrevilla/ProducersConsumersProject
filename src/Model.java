@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
 
@@ -24,19 +25,26 @@ public class Model {
     boolean validInput;
     boolean showStartBtn;
     boolean showStopBtn;
-    DefaultListModel<String> producersOutput;
-    DefaultListModel<String> consumersOutput;
+    ArrayList<String> producersOutput;
+    ArrayList<String> consumersOutput;
     long solvedTasks;
     int barColor;
     int queuedProducts;
     
     public Model() {
-        this.producersOutput = new DefaultListModel();
-        this.consumersOutput = new DefaultListModel();
-        this.resetModel();
+        this.resetModelOptions();
+        this.resetModelUI();
     }
     
-    public void resetModel() {
+    public void resetModelUI() {
+        this.solvedTasks = 0;
+        this.barColor = 0x1b4484;
+        this.queuedProducts = 0;
+        this.producersOutput = new ArrayList();
+        this.consumersOutput = new ArrayList();
+    }
+    
+    public void resetModelOptions() {
         this.numProducers = 1;
         this.numConsumers = 1;
         this.bufferSize = 1;
@@ -45,14 +53,5 @@ public class Model {
         this.validInput = true;
         this.showStartBtn = true;
         this.showStopBtn = false;
-        this.solvedTasks = 0;
-        this.barColor = 0x1b4484;
-        this.queuedProducts = 0;
     }
-    
-    public void clearOutputLists() {
-        this.producersOutput.clear();
-        this.consumersOutput.clear();
-    }
-    
 }

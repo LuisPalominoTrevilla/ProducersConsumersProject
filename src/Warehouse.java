@@ -1,8 +1,6 @@
 
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,10 +15,14 @@ import java.util.logging.Logger;
 public class Warehouse {
     private Queue<String> tasksBuffer;
     private int bufferCapacity;
+    private Model model;
+    private View view;
     
-    public Warehouse(int bufferSize) {
+    public Warehouse(int bufferSize, Model model, View view) {
         this.tasksBuffer = new LinkedList<>();
         this.bufferCapacity = bufferSize;
+        this.model = model;
+        this.view = view;
     }
     
     public boolean isFull() {
@@ -40,9 +42,8 @@ public class Warehouse {
             }
         }
         String product = this.tasksBuffer.remove();
-        System.out.println(String.format("Consumidor consumió %s", product));
-        System.out.println(this);
-        
+        this.model.queuedProducts = this.tasksBuffer.size();
+        this.view.updateProgressBar();
         notify();
         
         return product;
@@ -57,16 +58,8 @@ public class Warehouse {
             }
         }
         this.tasksBuffer.add(product);
-        System.out.println(String.format("Productor produjo %s", product));
-        System.out.println(this);
+        this.model.queuedProducts = this.tasksBuffer.size();
+        this.view.updateProgressBar();
         notify();
-    }
-    
-    public String toString() {
-        String res = "";
-        for (String s : this.tasksBuffer) {
-            res += String.format("%s->", s);
-        }
-        return res;
     }
 }

@@ -12,34 +12,37 @@ public class Consumer extends Thread{
     private int id;
     private Warehouse w;
     private long sleepTime;
+    private Controller controller;
+    private boolean runThreads;
     
-    
-    public Consumer(int id, Warehouse w, long sleep) {
+    public Consumer(int id, Warehouse w, long sleep, Controller controller) {
         this.id = id;
         this.w = w;
         this.sleepTime = sleep;
+        this.controller = controller;
+        this.runThreads = true;
     }
     
     @Override
     public void run() {
-        for(int i = 0; i < 10; i++) {
+        while(true) {
             try {
                 Thread.sleep(this.sleepTime);
             } catch (InterruptedException ex) {
                 continue;
             }
+            if (!this.runThreads) break;
+            
             String product = w.withdrawProduct();
             
             String result;
             try{
-                result = "---> Consumidor " + this.id + " consumió " + product + " = " + Integer.toString(this.consume(product)); 
+                result = "Consumidor " + this.id + " consumió " + product + ", resultado = " + Integer.toString(this.consume(product)); 
             } catch(ArithmeticException ae){
-                result = "---> El consumidor " + this.id + " arrojó un error por dividir entre 0";
-                System.out.println("------------------------");
+                result = "Consumidor " + this.id + " consumió " + product + " pero arrojó un error por dividir entre 0";
             }
             
-            System.out.println(result);
-            // System.out.println(String.format("Consumidor %d consumió %s", this.id, product));
+            this.controller.updateConsumersOutput(result);
         }
     }
     
@@ -59,5 +62,9 @@ public class Consumer extends Thread{
             default: 
                 return 0;
         }        
+    }
+    
+    public void stopThread() {
+        this.runThreads = false;
     }
 }

@@ -43,7 +43,7 @@ public class Consumer extends Thread{
             
             this.controller.updateConsumersOutput(result);
         }
-            System.out.println("consumer out: " + this.id);
+        //    System.out.println("consumer out: " + this.id);
     }
     
     public int consume(String product){

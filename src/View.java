@@ -346,7 +346,6 @@ public class View extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        System.out.println("formwindowclosing!!!");
         controller.stopThreads();
     }//GEN-LAST:event_formWindowClosing
 

@@ -91,12 +91,13 @@ public class Controller implements ActionListener {
     }
     
     public void stopThreads(){
-        System.out.println("matando threads");
         for (Producer producer : this.producers) {
             producer.stopThread();
+            producer.interrupt();
         }
         for (Consumer consumer : this.consumers) {
             consumer.stopThread();
+            consumer.interrupt();
         }
     }
     

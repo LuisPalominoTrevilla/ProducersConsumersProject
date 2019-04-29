@@ -117,6 +117,11 @@ public class View extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -127,9 +132,10 @@ public class View extends javax.swing.JFrame {
 
         jLabel3.setText("Number of Consumers");
 
-        sp_p_number.setModel(new javax.swing.SpinnerNumberModel(1, 1, 9, 1));
+        sp_p_number.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
 
-        sp_c_number.setModel(new javax.swing.SpinnerNumberModel(1, 1, 9, 1));
+        sp_c_number.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
+        sp_c_number.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel4.setText("Producers sleep time");
 
@@ -338,6 +344,11 @@ public class View extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.out.println("formwindowclosing!!!");
+        controller.stopThreads();
+    }//GEN-LAST:event_formWindowClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

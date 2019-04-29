@@ -25,13 +25,12 @@ public class Consumer extends Thread{
     
     @Override
     public void run() {
-        while(true) {
+        while(this.runThreads) {
             try {
                 Thread.sleep(this.sleepTime);
             } catch (InterruptedException ex) {
                 continue;
             }
-            if (!this.runThreads) break;
             
             String product = w.withdrawProduct();
             
@@ -44,6 +43,7 @@ public class Consumer extends Thread{
             
             this.controller.updateConsumersOutput(result);
         }
+            System.out.println("consumer out: " + this.id);
     }
     
     public int consume(String product){

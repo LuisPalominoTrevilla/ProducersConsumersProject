@@ -28,19 +28,18 @@ public class Producer extends Thread{
     
     @Override
     public void run() {
-        while(true) {
+        while(this.runThreads) {
             try {
                 Thread.sleep(this.sleepTime);
             } catch (InterruptedException ex) {
                 continue;
-            }
-            if (!this.runThreads) break;
-            
+            }            
             String product = this.createProduct();
             w.produce(product);
             String output = String.format("Productor %d produjo %s", id, product);
             this.controller.updateProducersOutput(output);
         }
+        System.out.println("producer out: " + this.id);
     }
     
     public String createProduct(){

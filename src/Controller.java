@@ -29,15 +29,15 @@ public class Controller implements ActionListener {
         
     }
     
-    public boolean validateData() {
+    public boolean validateData() {        
         boolean producersQuantityValid = this.model.numProducers >= 1 &&
-                this.model.numProducers <= 9;
+                this.model.numProducers <= 10;
         boolean consumersQuantityValid = this.model.numConsumers >= 1 &&
-                this.model.numConsumers <= 9;
+                this.model.numConsumers <= 10;
         boolean producersSleepValid = this.model.sleepProducers >= 0 &&
-                this.model.sleepProducers <= Long.MAX_VALUE;
+                this.model.sleepProducers <= 10000;// 10 seconds
         boolean consumersSleepValid = this.model.sleepConsumers >= 0 &&
-                this.model.sleepConsumers <= Long.MAX_VALUE;
+                this.model.sleepConsumers <= 10000;
         boolean bufferSizeValid = this.model.bufferSize >= 1 &&
                 this.model.bufferSize <= 100;
         return producersQuantityValid && consumersQuantityValid &&
@@ -83,15 +83,20 @@ public class Controller implements ActionListener {
                 this.view.updateConsumersView();
                 break;
             case "Stop":
-                for (Producer producer : this.producers) {
-                    producer.stopThread();
-                }
-                for (Consumer consumer : this.consumers) {
-                    consumer.stopThread();
-                }
+                this.stopThreads();
                 this.model.resetModelOptions();
                 this.view.updateOptions();
                 break;
+        }
+    }
+    
+    public void stopThreads(){
+        System.out.println("matando threads");
+        for (Producer producer : this.producers) {
+            producer.stopThread();
+        }
+        for (Consumer consumer : this.consumers) {
+            consumer.stopThread();
         }
     }
     

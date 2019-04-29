@@ -80,6 +80,7 @@ public class Controller implements ActionListener {
                 this.model.resetModelUI();
                 this.view.updateOptions();
                 this.view.updateProgressBar();
+                this.view.updateProducersView();
                 this.view.updateConsumersView();
                 break;
             case "Stop":

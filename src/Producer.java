@@ -12,10 +12,10 @@ import java.util.Random;
  * @author luispalomino
  */
 public class Producer extends Thread{
-    private int id;
-    private Warehouse w;
-    private long sleepTime;
-    private Controller controller;
+    private final int id;
+    private final Warehouse w;
+    private final long sleepTime;
+    private final Controller controller;
     private boolean runThreads;
     
     public Producer(int id, Warehouse w, long sleep, Controller controller) {

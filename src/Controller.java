@@ -67,6 +67,12 @@ public class Controller implements ActionListener {
             this.model.errorMessage = "El tamaño del buffer es inválido";
             return false;
         }
+        boolean operatorsAreValid = this.model.operators.size() > 0;
+        if(!operatorsAreValid){
+            this.model.errorMessage = "No has seleccionado operadores";
+            return false;
+        }
+        
         return true;
     }
     

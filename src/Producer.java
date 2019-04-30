@@ -42,9 +42,7 @@ public class Producer extends Thread{
                 continue;
             }            
             String product = this.createProduct();
-            w.produce(product);
-            String output = String.format("Productor %d produjo %s", id, product);
-            this.controller.updateProducersOutput(output);
+            w.produce(product, id);
         }
         //System.out.println("producer out: " + this.id);
     }

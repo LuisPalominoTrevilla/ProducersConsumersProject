@@ -33,19 +33,41 @@ public class Controller implements ActionListener {
         boolean producersValValid = this.model.minProducerValue >= 0 && this.model.minProducerValue <= 9
                 && this.model.maxProducerValue >= 0 && this.model.maxProducerValue <= 9 &&
                 this.model.minProducerValue <= this.model.maxProducerValue;
+        if (!producersValValid) {
+            this.model.errorMessage = "Los valores de operaciones no son correctos";
+            return false;
+        }
         boolean producersQuantityValid = this.model.numProducers >= 1 &&
                 this.model.numProducers <= 10;
+        if (!producersQuantityValid) {
+            this.model.errorMessage = "El número de productores es inválido";
+            return false;
+        }
         boolean consumersQuantityValid = this.model.numConsumers >= 1 &&
                 this.model.numConsumers <= 10;
+        if (!consumersQuantityValid) {
+            this.model.errorMessage = "El número de consumidores es inválido";
+            return false;
+        }
         boolean producersSleepValid = this.model.sleepProducers >= 0 &&
                 this.model.sleepProducers <= 10000;// 10 seconds
+        if (!producersSleepValid) {
+            this.model.errorMessage = "El tiempo de dormir de productores es inválido";
+            return false;
+        }
         boolean consumersSleepValid = this.model.sleepConsumers >= 0 &&
                 this.model.sleepConsumers <= 10000;
+        if (!consumersSleepValid) {
+            this.model.errorMessage = "El tiempo de dormir de consumidores es inválido";
+            return false;
+        }
         boolean bufferSizeValid = this.model.bufferSize >= 1 &&
                 this.model.bufferSize <= 100;
-        return producersQuantityValid && consumersQuantityValid &&
-                producersSleepValid && consumersSleepValid && bufferSizeValid
-                && producersValValid;
+        if (!bufferSizeValid) {
+            this.model.errorMessage = "El tamaño del buffer es inválido";
+            return false;
+        }
+        return true;
     }
     
     public void startThreads() {
@@ -77,10 +99,8 @@ public class Controller implements ActionListener {
                 this.model.minProducerValue = this.view.getMinProducerValue();
                 this.model.maxProducerValue = this.view.getMaxProducerValue();
                 
-                if (!this.validateData()) {
-                    this.model.validInput = false;
-                } else {
-                    this.model.validInput = true;
+                if (this.validateData()) {
+                    this.model.errorMessage = "";
                     this.model.showStartBtn = false;
                     this.model.showStopBtn = true;
                     this.startThreads();

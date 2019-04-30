@@ -60,11 +60,7 @@ public class View extends javax.swing.JFrame {
     }
     
     public void updateOptions() {
-        if (this.model.validInput) {
-            this.ta_logger.setText("");
-        } else {
-            this.ta_logger.setText("Error, input inválido. Verifica los valores antes de continuar");
-        }
+        this.ta_logger.setText(this.model.errorMessage);
         
         this.bt_start.setEnabled(this.model.showStartBtn);
         this.bt_stop.setEnabled(this.model.showStopBtn);

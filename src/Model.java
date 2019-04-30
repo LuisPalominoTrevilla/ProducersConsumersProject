@@ -21,7 +21,6 @@ public class Model {
     long sleepProducers;
     long sleepConsumers;
     boolean runThreads;
-    boolean validInput;
     boolean showStartBtn;
     boolean showStopBtn;
     int minProducerValue;
@@ -32,6 +31,7 @@ public class Model {
     long solvedTasks;
     int barColor;
     int queuedProducts;
+    String errorMessage;
     
     public Model() {
         this.resetModelOptions();
@@ -56,7 +56,6 @@ public class Model {
         this.sleepProducers = 0;
         this.minProducerValue = 0;
         this.maxProducerValue = 9;
-        this.validInput = true;
         this.showStartBtn = true;
         this.showStopBtn = false;
         this.operators = new ArrayList();

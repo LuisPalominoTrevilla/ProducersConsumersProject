@@ -45,6 +45,7 @@ public class Model {
         this.minProducerValue = 0;
         this.maxProducerValue = 0;
         this.producersOutput = new ArrayList();
+        
         this.consumersOutput = new ArrayList();
     }
     
@@ -59,5 +60,8 @@ public class Model {
         this.showStartBtn = true;
         this.showStopBtn = false;
         this.operators = new ArrayList();
+
+        this.producersOutput = new ArrayList();
+        this.consumersOutput = new ArrayList();
     }
 }

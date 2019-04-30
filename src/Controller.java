@@ -96,6 +96,8 @@ public class Controller implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "Start":
+                this.model.resetModelUI();
+                
                 this.model.numProducers = this.view.getNumProducers();
                 this.model.numConsumers = this.view.getNumConsumers();
                 this.model.bufferSize = this.view.getBufferSize();
@@ -111,7 +113,6 @@ public class Controller implements ActionListener {
                     this.model.showStopBtn = true;
                     this.startThreads();
                 }
-                this.model.resetModelUI();
                 this.view.updateOptions();
                 this.view.updateProgressBar();
                 this.view.updateProducersView();
@@ -120,6 +121,7 @@ public class Controller implements ActionListener {
             case "Stop":
                 this.stopThreads();
                 this.model.resetModelOptions();
+                
                 this.view.updateOptions();
                 break;
         }
@@ -147,11 +149,21 @@ public class Controller implements ActionListener {
     
     public synchronized void updateProducersOutput(String output) {
         this.model.producersOutput.add(output);	        
+        //printProducersOutput();
+       
         this.view.updateProducersView();	        
     }
-
-    public synchronized void updateProducersOutput(){
-        this.model.producersOutput.remove(0);
+    
+    public synchronized void removeProducedOperation() {
+        String removed = this.model.producersOutput.remove(0);
         this.view.updateProducersView();	        
     }
+    
+    /*public synchronized void printProducersOutput(){
+        System.out.println("-------producers output ----------");
+        for(String item : this.model.producersOutput){
+            System.out.println("item: " + item);
+        }
+        System.out.println("-----------------");
+    }*/
 }

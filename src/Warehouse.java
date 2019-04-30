@@ -47,7 +47,6 @@ public class Warehouse {
         this.model.queuedProducts = this.tasksBuffer.size();
         this.view.updateProgressBar();
         
-        this.controller.removeProducersOutput();
         notify();
         
         return product;
@@ -63,10 +62,11 @@ public class Warehouse {
         }
         this.tasksBuffer.add(product);
         this.model.queuedProducts = this.tasksBuffer.size();
-        this.view.updateProgressBar();
         String output = String.format("Productor %d produjo %s", producerId, product);
-        this.controller.addProducersOutput(output);
+        this.controller.updateProducersOutput(output);	
 
+        this.view.updateProgressBar();
+        
         notify();
     }
 }

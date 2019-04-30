@@ -145,13 +145,9 @@ public class Controller implements ActionListener {
         this.view.updateConsumersView();
     }
     
-    public synchronized void addProducersOutput(String output){
-        this.model.producersOutput.add(output);
-        this.view.updateProducersView();
+    public synchronized void updateProducersOutput(String output) {
+        this.model.producersOutput.add(output);	        
+        this.view.updateProducersView();	        
     }
     
-    public synchronized void removeProducersOutput(){
-        this.model.producersOutput.remove(0);
-        this.view.updateProducersView();
-    }
 }

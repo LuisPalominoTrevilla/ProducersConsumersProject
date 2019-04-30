@@ -26,8 +26,7 @@ public class Consumer extends Thread{
     @Override
     public void run() {
         while(this.runThreads) {
-            String product = w.withdrawProduct();
-            
+            String product = w.withdrawProduct();            
             String result;
             try{
                 result = "Consumidor " + this.id + " consumió " + product + ", resultado = " + Integer.toString(this.consume(product)); 
@@ -35,23 +34,12 @@ public class Consumer extends Thread{
                 result = "Consumidor " + this.id + " consumió " + product + " pero arrojó un error por dividir entre 0";
             }
             
-            this.controller.updateConsumersOutput(result);
-<<<<<<< HEAD
-            try {
-                Thread.sleep(this.sleepTime);
-            } catch (InterruptedException ex) {
-                continue;
-            }
-            
-            
-=======
-            
+            this.controller.updateConsumersOutput(result);            
             try {
                 Thread.sleep(this.sleepTime);
             } catch (InterruptedException ex) {
                 
             }
->>>>>>> a72a94ffc5b3e827542fcbfa207dd749d562db54
         }
     }
     

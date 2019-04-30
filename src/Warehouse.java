@@ -45,7 +45,7 @@ public class Warehouse {
         String product = this.tasksBuffer.remove();
         this.model.queuedProducts = this.tasksBuffer.size();
         this.view.updateProgressBar();
-        
+        this.controller.updateProducersOutput();
         notify();
         
         return product;

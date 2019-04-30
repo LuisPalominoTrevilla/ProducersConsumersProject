@@ -149,5 +149,9 @@ public class Controller implements ActionListener {
         this.model.producersOutput.add(output);	        
         this.view.updateProducersView();	        
     }
-    
+
+    public synchronized void updateProducersOutput(){
+        this.model.producersOutput.remove(0);
+        this.view.updateProducersView();	        
+    }
 }

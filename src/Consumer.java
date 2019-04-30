@@ -36,6 +36,7 @@ public class Consumer extends Thread{
             }
             
             this.controller.updateConsumersOutput(result);
+<<<<<<< HEAD
             try {
                 Thread.sleep(this.sleepTime);
             } catch (InterruptedException ex) {
@@ -43,8 +44,15 @@ public class Consumer extends Thread{
             }
             
             
+=======
+            
+            try {
+                Thread.sleep(this.sleepTime);
+            } catch (InterruptedException ex) {
+                
+            }
+>>>>>>> a72a94ffc5b3e827542fcbfa207dd749d562db54
         }
-        //    System.out.println("consumer out: " + this.id);
     }
     
     public int consume(String product){

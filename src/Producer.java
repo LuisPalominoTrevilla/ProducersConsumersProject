@@ -38,14 +38,22 @@ public class Producer extends Thread{
         while(this.runThreads) {
             String product = this.createProduct();
             w.produce(product, id);
+<<<<<<< HEAD
             try {
                 Thread.sleep(this.sleepTime);
             } catch (InterruptedException ex) {
                 continue;
             }            
             
+=======
+            
+            try {
+                Thread.sleep(this.sleepTime);
+            } catch (InterruptedException ex) {
+                
+            }
+>>>>>>> a72a94ffc5b3e827542fcbfa207dd749d562db54
         }
-        //System.out.println("producer out: " + this.id);
     }
     
     public String createProduct(){

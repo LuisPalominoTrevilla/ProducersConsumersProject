@@ -36,15 +36,15 @@ public class Producer extends Thread{
     @Override
     public void run() {
         while(this.runThreads) {
+            String product = this.createProduct();
+            w.produce(product, id);
+            
             try {
                 Thread.sleep(this.sleepTime);
             } catch (InterruptedException ex) {
-                continue;
-            }            
-            String product = this.createProduct();
-            w.produce(product, id);
+                
+            }
         }
-        //System.out.println("producer out: " + this.id);
     }
     
     public String createProduct(){

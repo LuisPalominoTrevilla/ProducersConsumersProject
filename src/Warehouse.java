@@ -40,7 +40,6 @@ public class Warehouse {
             try {
                 wait();
             } catch (InterruptedException ex) {
-                continue;
             }
         }
         String product = this.tasksBuffer.remove();
@@ -58,7 +57,6 @@ public class Warehouse {
             try {
                 wait();
             } catch (InterruptedException ex) {
-                continue;
             }
         }
         this.tasksBuffer.add(product);

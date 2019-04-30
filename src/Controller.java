@@ -51,7 +51,7 @@ public class Controller implements ActionListener {
     public void startThreads() {
         this.producers = new Producer[this.model.numProducers];
         this.consumers = new Consumer[this.model.numConsumers];
-        this.warehouse = new Warehouse(this.model.bufferSize, this.model, this.view);
+        this.warehouse = new Warehouse(this.model.bufferSize, this.model, this.view, this);
 
         for (int i = 0; i < this.model.numProducers; i++) {
             this.producers[i] = new Producer(i + 1, this.warehouse, this.model.sleepProducers, this, this.model.operators, this.model.minProducerValue, this.model.maxProducerValue);
@@ -119,8 +119,13 @@ public class Controller implements ActionListener {
         this.view.updateConsumersView();
     }
     
-    public synchronized void updateProducersOutput(String output) {
+    public synchronized void addProducersOutput(String output){
         this.model.producersOutput.add(output);
+        this.view.updateProducersView();
+    }
+    
+    public synchronized void removeProducersOutput(){
+        this.model.producersOutput.remove(0);
         this.view.updateProducersView();
     }
 }

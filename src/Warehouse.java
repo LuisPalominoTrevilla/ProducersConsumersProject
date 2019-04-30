@@ -17,12 +17,14 @@ public class Warehouse {
     private int bufferCapacity;
     private Model model;
     private View view;
+    private Controller controller;
     
-    public Warehouse(int bufferSize, Model model, View view) {
+    public Warehouse(int bufferSize, Model model, View view, Controller controller) {
         this.tasksBuffer = new LinkedList<>();
         this.bufferCapacity = bufferSize;
         this.model = model;
         this.view = view;
+        this.controller = controller;
     }
     
     public boolean isFull() {
@@ -44,12 +46,14 @@ public class Warehouse {
         String product = this.tasksBuffer.remove();
         this.model.queuedProducts = this.tasksBuffer.size();
         this.view.updateProgressBar();
+        
+        this.controller.removeProducersOutput();
         notify();
         
         return product;
     }
     
-    public synchronized void produce(String product) {
+    public synchronized void produce(String product, int producerId) {
         while (this.isFull()) {
             try {
                 wait();
@@ -60,6 +64,9 @@ public class Warehouse {
         this.tasksBuffer.add(product);
         this.model.queuedProducts = this.tasksBuffer.size();
         this.view.updateProgressBar();
+        String output = String.format("Productor %d produjo %s", producerId, product);
+        this.controller.addProducersOutput(output);
+
         notify();
     }
 }

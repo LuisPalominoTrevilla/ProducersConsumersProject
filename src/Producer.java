@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /*
@@ -17,13 +18,19 @@ public class Producer extends Thread{
     private final long sleepTime;
     private final Controller controller;
     private boolean runThreads;
+    private final ArrayList<Character> operators;
+    private int minVal;
+    private int maxVal;
     
-    public Producer(int id, Warehouse w, long sleep, Controller controller) {
+    public Producer(int id, Warehouse w, long sleep, Controller controller, ArrayList<Character> operators, int minVal, int maxVal) {
         this.id = id;
         this.w = w;
         this.sleepTime = sleep;
+        this.operators = operators;
         this.controller = controller;
         this.runThreads = true;
+        this.minVal = minVal;
+        this.maxVal = maxVal;
     }
     
     @Override
@@ -44,9 +51,7 @@ public class Producer extends Thread{
     
     public String createProduct(){
         Random r = new Random();
-        char[] symbol = {'*', '/', '+', '-'};
-        
-        return "(" + symbol[r.nextInt(4)] + " " + r.nextInt(10) + " " + r.nextInt(10) + ")";
+        return "(" + operators.get(r.nextInt(operators.size())) + " " + (r.nextInt(maxVal-minVal+1) + minVal) + " " + (r.nextInt(maxVal-minVal+1) + minVal) + ")";
     }
     
     public void stopThread() {

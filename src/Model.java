@@ -24,8 +24,11 @@ public class Model {
     boolean validInput;
     boolean showStartBtn;
     boolean showStopBtn;
+    int minProducerValue;
+    int maxProducerValue;
     ArrayList<String> producersOutput;
     ArrayList<String> consumersOutput;
+    ArrayList<Character> operators;
     long solvedTasks;
     int barColor;
     int queuedProducts;
@@ -39,6 +42,8 @@ public class Model {
         this.solvedTasks = 0;
         this.barColor = 0x1b4484;
         this.queuedProducts = 0;
+        this.minProducerValue = 0;
+        this.maxProducerValue = 0;
         this.producersOutput = new ArrayList();
         this.consumersOutput = new ArrayList();
     }
@@ -49,8 +54,11 @@ public class Model {
         this.bufferSize = 1;
         this.sleepConsumers = 0;
         this.sleepProducers = 0;
+        this.minProducerValue = 0;
+        this.maxProducerValue = 9;
         this.validInput = true;
         this.showStartBtn = true;
         this.showStopBtn = false;
+        this.operators = new ArrayList();
     }
 }

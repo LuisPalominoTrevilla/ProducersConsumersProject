@@ -1,4 +1,4 @@
-
+    
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,7 +29,10 @@ public class Controller implements ActionListener {
         
     }
     
-    public boolean validateData() {        
+    public boolean validateData() {       
+        boolean producersValValid = this.model.minProducerValue >= 0 && this.model.minProducerValue <= 9
+                && this.model.maxProducerValue >= 0 && this.model.maxProducerValue <= 9 &&
+                this.model.minProducerValue <= this.model.maxProducerValue;
         boolean producersQuantityValid = this.model.numProducers >= 1 &&
                 this.model.numProducers <= 10;
         boolean consumersQuantityValid = this.model.numConsumers >= 1 &&
@@ -41,16 +44,17 @@ public class Controller implements ActionListener {
         boolean bufferSizeValid = this.model.bufferSize >= 1 &&
                 this.model.bufferSize <= 100;
         return producersQuantityValid && consumersQuantityValid &&
-                producersSleepValid && consumersSleepValid && bufferSizeValid;
+                producersSleepValid && consumersSleepValid && bufferSizeValid
+                && producersValValid;
     }
     
     public void startThreads() {
         this.producers = new Producer[this.model.numProducers];
         this.consumers = new Consumer[this.model.numConsumers];
         this.warehouse = new Warehouse(this.model.bufferSize, this.model, this.view);
-        
+
         for (int i = 0; i < this.model.numProducers; i++) {
-            this.producers[i] = new Producer(i + 1, this.warehouse, this.model.sleepProducers, this);
+            this.producers[i] = new Producer(i + 1, this.warehouse, this.model.sleepProducers, this, this.model.operators, this.model.minProducerValue, this.model.maxProducerValue);
             this.producers[i].start();
         }
         
@@ -67,8 +71,12 @@ public class Controller implements ActionListener {
                 this.model.numProducers = this.view.getNumProducers();
                 this.model.numConsumers = this.view.getNumConsumers();
                 this.model.bufferSize = this.view.getBufferSize();
+                this.model.operators = this.view.getOperators();
                 this.model.sleepProducers = this.view.getSleepTimeProducers();
                 this.model.sleepConsumers = this.view.getSleepTimeConsumers();
+                this.model.minProducerValue = this.view.getMinProducerValue();
+                this.model.maxProducerValue = this.view.getMaxProducerValue();
+                
                 if (!this.validateData()) {
                     this.model.validInput = false;
                 } else {
@@ -92,6 +100,9 @@ public class Controller implements ActionListener {
     }
     
     public void stopThreads(){
+        if(this.producers == null || this.consumers == null){
+            return;
+        }
         for (Producer producer : this.producers) {
             producer.stopThread();
             producer.interrupt();
